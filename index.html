@@ -1,10 +1,178 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>My AI490 Site</title>
-</head>
-<body>
-<h1>Hello from my first webpage!<h1>
-<p>This page will later host my coursework.<p>
-</body>
-</html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI490 Coursework</title>
+    <meta name="description" content="Personal site for AI490 coursework." />
+
+    <style>
+      :root {
+        --bg: #0f172a;           /* slate-900 */
+        --bg-elev: #111827;      /* gray-900 */
+        --surface: #0b1220;      /* deep surface */
+        --border: #1f2937;       /* gray-800 */
+        --text: #e5e7eb;         /* gray-200 */
+        --muted: #94a3b8;        /* slate-400 */
+        --brand: #60a5fa;        /* blue-400 */
+        --brand-ink: #1e40af;    /* blue-900 */
+        --shadow: 0 6px 20px rgba(2, 6, 23, 0.6);
+        --radius: 14px;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f8fafc;         /* slate-50 */
+          --bg-elev: #ffffff;    /* white */
+          --surface: #ffffff;
+          --border: #e5e7eb;     /* gray-200 */
+          --text: #0f172a;       /* slate-900 */
+          --muted: #475569;      /* slate-600 */
+          --brand: #2563eb;      /* blue-600 */
+          --brand-ink: #eff6ff;  /* blue-50 */
+          --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+        }
+      }
+
+      /* Base */
+      html, body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        color: var(--text);
+        background: radial-gradient(1200px 600px at 10% 0%, rgba(96,165,250,0.08), transparent 60%),
+                    radial-gradient(1200px 600px at 100% 10%, rgba(14,165,233,0.08), transparent 60%),
+                    var(--bg);
+      }
+
+      /* Layout */
+      .wrap {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        padding: 56px 20px 32px;
+        background: linear-gradient(180deg, rgba(96,165,250,0.10), rgba(0,0,0,0));
+        border-bottom: 1px solid var(--border);
+      }
+      .container {
+        width: 100%;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+
+      /* Hero */
+      .hero {
+        display: grid;
+        gap: 12px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .eyebrow .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--brand), #22d3ee);
+        box-shadow: 0 0 0 3px rgba(96,165,250,0.15);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(28px, 5vw, 44px);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+      }
+      .subtitle {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: clamp(14px, 2.4vw, 18px);
+      }
+
+      /* Card */
+      main {
+        flex: 1 1 auto;
+      }
+      .card {
+        margin: -24px auto 48px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0)) , var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 20px;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      /* Button */
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 18px;
+        padding: 10px 14px;
+        background: linear-gradient(135deg, var(--brand), #22d3ee);
+        color: #0b1220;
+        border: 0;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 8px 24px rgba(2,6,23,0.25);
+      }
+      .cta:hover { filter: brightness(1.05); transform: translateY(-1px); }
+      .cta:active { transform: translateY(0); }
+
+      /* Footer */
+      footer {
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        padding: 24px 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="container hero">
+          <div class="eyebrow"><span class="dot"></span> AI490</div>
+          <h1>Hello from my first webpage!</h1>
+          <p class="subtitle">This site will host my coursework and resources.</p>
+        </div>
+      </header>
+
+      <main class="container">
+        <section class="card" aria-labelledby="getting-started">
+          <h2 id="getting-started">Getting started</h2>
+          <p>This page will later host my coursework. I’ll add assignments, notes, and project links here.</p>
+          <a class="cta" href="#" aria-disabled="true" title="Coming soon">Add first assignment →</a>
+        </section>
+      </main>
+
+      <footer>
+        <div class="container">© <span id="year"></span> AI490 Coursework</div>
+      </footer>
+    </div>
+
+    <script>
+      // Set current year in footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+  </html>
