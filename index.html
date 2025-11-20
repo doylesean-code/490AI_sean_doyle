@@ -1,178 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI490 Coursework</title>
-    <meta name="description" content="Personal site for AI490 coursework." />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- TODO: Change the title to your preferred page title -->
+  <title>Sean Doyle | AI in Economics</title>
 
-    <style>
-      :root {
-        --bg: #0f172a;           /* slate-900 */
-        --bg-elev: #111827;      /* gray-900 */
-        --surface: #0b1220;      /* deep surface */
-        --border: #1f2937;       /* gray-800 */
-        --text: #e5e7eb;         /* gray-200 */
-        --muted: #94a3b8;        /* slate-400 */
-        --brand: #60a5fa;        /* blue-400 */
-        --brand-ink: #1e40af;    /* blue-900 */
-        --shadow: 0 6px 20px rgba(2, 6, 23, 0.6);
-        --radius: 14px;
-      }
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --card-bg: #020617;
+      --card-bg-soft: #020617;
+      --border-subtle: #1f2937;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.1);
+      --accent-strong: #0ea5e9;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+    }
 
-      @media (prefers-color-scheme: light) {
-        :root {
-          --bg: #f8fafc;         /* slate-50 */
-          --bg-elev: #ffffff;    /* white */
-          --surface: #ffffff;
-          --border: #e5e7eb;     /* gray-200 */
-          --text: #0f172a;       /* slate-900 */
-          --muted: #475569;      /* slate-600 */
-          --brand: #2563eb;      /* blue-600 */
-          --brand-ink: #eff6ff;  /* blue-50 */
-          --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
-        }
-      }
+    * {
+      box-sizing: border-box;
+    }
 
-      /* Base */
-      html, body {
-        height: 100%;
-      }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.16), #020617 55%);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 14px rgba(34, 197, 94, 0.9);
+    }
+
+    .course-tag {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin: 0 0 0.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.02rem;
+      line-height: 1.7;
+      max-width: 40rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .main-layout {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.06), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.9), #020617);
+      border-radius: 1.5rem;
+      padding: 2.25rem 2.1rem;
+      border: 1px solid var(--border-subtle);
+      box-shadow:
+        0 24px 60px rgba(15, 23, 42, 0.95),
+        0 0 0 1px rgba(15, 23, 42, 0.8);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 0 0.75rem;
+    }
+
+    .card-text {
+      font-size: 0.98rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 1.7rem;
+      max-width: 44rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.85rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.97rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.18s ease-out;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #0f172a;
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.45);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(56, 189, 248, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--muted);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: #020617;
+      border-color: rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+    }
+
+    .btn-icon {
+      font-size: 1.1rem;
+      margin-top: -1px;
+    }
+
+    .profile-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-card {
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 55%),
+                  rgba(15, 23, 42, 0.9);
+      border-radius: 1.5rem;
+      padding: 1.75rem 1.5rem;
+      border: 1px solid rgba(30, 64, 175, 0.65);
+      width: min(260px, 100%);
+      text-align: center;
+      box-shadow:
+        0 18px 40px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.85);
+    }
+
+    .profile-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 999px;
+      margin: 0 auto 1rem;
+      border: 2px solid rgba(56, 189, 248, 0.7);
+      background:
+        radial-gradient(circle at 25% 0%, rgba(56, 189, 248, 0.6), transparent 55%),
+        radial-gradient(circle at 80% 120%, rgba(30, 64, 175, 0.9), #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(226, 232, 240, 0.9);
+      font-weight: 600;
+      font-size: 1.4rem;
+    }
+
+    .profile-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .profile-role {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .profile-tagline {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 840px) {
       body {
-        margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
-          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        color: var(--text);
-        background: radial-gradient(1200px 600px at 10% 0%, rgba(96,165,250,0.08), transparent 60%),
-                    radial-gradient(1200px 600px at 100% 10%, rgba(14,165,233,0.08), transparent 60%),
-                    var(--bg);
+        padding: 2.5rem 1.25rem 3rem;
       }
 
-      /* Layout */
-      .wrap {
-        min-height: 100%;
-        display: flex;
-        flex-direction: column;
-      }
-      header {
-        padding: 56px 20px 32px;
-        background: linear-gradient(180deg, rgba(96,165,250,0.10), rgba(0,0,0,0));
-        border-bottom: 1px solid var(--border);
-      }
-      .container {
-        width: 100%;
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 0 16px;
+      .main-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2rem;
       }
 
-      /* Hero */
-      .hero {
-        display: grid;
-        gap: 12px;
-      }
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 12px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-      .eyebrow .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 999px;
-        background: linear-gradient(135deg, var(--brand), #22d3ee);
-        box-shadow: 0 0 0 3px rgba(96,165,250,0.15);
-      }
-      h1 {
-        margin: 0;
-        font-size: clamp(28px, 5vw, 44px);
-        line-height: 1.15;
-        letter-spacing: -0.02em;
-      }
-      .subtitle {
-        margin: 4px 0 0;
-        color: var(--muted);
-        font-size: clamp(14px, 2.4vw, 18px);
+      .profile-wrapper {
+        order: -1;
+        justify-content: flex-start;
       }
 
-      /* Card */
-      main {
-        flex: 1 1 auto;
+      .profile-card {
+        margin-left: 0;
       }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding-inline: 1rem;
+      }
+
       .card {
-        margin: -24px auto 48px;
-        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0)) , var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        padding: 28px;
-      }
-      .card h2 {
-        margin: 0 0 10px;
-        font-size: 20px;
-      }
-      .card p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 16px;
+        padding: 1.7rem 1.35rem;
       }
 
-      /* Button */
-      .cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        margin-top: 18px;
-        padding: 10px 14px;
-        background: linear-gradient(135deg, var(--brand), #22d3ee);
-        color: #0b1220;
-        border: 0;
-        border-radius: 10px;
-        font-weight: 600;
-        text-decoration: none;
-        box-shadow: 0 8px 24px rgba(2,6,23,0.25);
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
       }
-      .cta:hover { filter: brightness(1.05); transform: translateY(-1px); }
-      .cta:active { transform: translateY(0); }
 
-      /* Footer */
-      footer {
-        border-top: 1px solid var(--border);
-        color: var(--muted);
-        padding: 24px 16px;
+      .btn {
+        width: 100%;
+        justify-content: center;
       }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <header>
-        <div class="container hero">
-          <div class="eyebrow"><span class="dot"></span> AI490</div>
-          <h1>Hello from my first webpage!</h1>
-          <p class="subtitle">This site will host my coursework and resources.</p>
-        </div>
-      </header>
-
-      <main class="container">
-        <section class="card" aria-labelledby="getting-started">
-          <h2 id="getting-started">Getting started</h2>
-          <p>This page will later host my coursework. I’ll add assignments, notes, and project links here.</p>
-          <a class="cta" href="#" aria-disabled="true" title="Coming soon">Add first assignment →</a>
-        </section>
-      </main>
-
-      <footer>
-        <div class="container">© <span id="year"></span> AI490 Coursework</div>
-      </footer>
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="header-row">
+      <span class="status-dot"></span>
+      <!-- TODO: Change "AI 490" to your actual course code if needed -->
+      <span class="course-tag">AI 490 · AI in Economics</span>
     </div>
 
-    <script>
-      // Set current year in footer
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-  </body>
-  </html>
+    <!-- TODO: Replace the name and tagline with your own -->
+    <h1 class="hero-title">Sean Doyle</h1>
+    <p class="hero-subtitle">
+      Managerial Economics student at UMass Amherst interested in artificial intelligence,
+      data analysis, and how emerging technologies reshape industries and labor markets.
+    </p>
+
+    <section class="main-layout">
+      <section class="card" aria-labelledby="getting-started-heading">
+        <h2 id="getting-started-heading" class="card-title">Coursework &amp; resources</h2>
+        <p class="card-text">
+          This site collects my work for the AI in Economics course, including my project,
+          research notes, and key materials. Use the links below to download my resume
+          or explore course projects.
+        </p>
+
+        <div class="actions">
+          <!-- TODO: Point this href to your actual resume file (e.g., resume.pdf) -->
+          <a class="btn btn-primary" href="resume.pdf" target="_blank" rel="noopener">
+            <span class="btn-icon">📄</span>
+            <span>Resume</span>
+          </a>
+
+          <!-- TODO: If you change the projects page name, update this link -->
+          <a class="btn btn-secondary" href="project.html">
+            <span class="btn-icon">🧠</span>
+            <span>Projects</span>
+          </a>
+        </div>
+      </section>
+
+      <aside class="profile-wrapper">
+        <div class="profile-card">
+          <!--
+            TODO: If you have a real headshot, replace the placeholder avatar:
+              1. Remove the inner initials span.
+              2. Add an <img> tag with your picture, e.g.:
+
+              <img src="images/profile.jpg"
+                   alt="Photo of Sean Doyle"
+                   class="profile-avatar" />
+
+            For now this uses initials inside a styled circle.
+          -->
+          <div class="profile-avatar">
+            SD
+          </div>
+
+          <!-- TODO: Update name/role/tagline as needed -->
+          <div class="profile-name">Sean Doyle</div>
+          <div class="profile-role">Managerial Economics · UMass Amherst</div>
+          <p class="profile-tagline">
+            Exploring how AI, data, and incentives shape real-world firms and
+            the future of work.
+          </p>
+        </div>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>
